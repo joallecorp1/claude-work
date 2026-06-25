@@ -5,10 +5,10 @@ module.exports = {
     extend: {
       colors: {
         brand: {
-          navy: '#0B1F2A',
-          iodine: '#7C2D12',
-          amber: '#B45309',
-          cream: '#F7F4EE',
+          teal: '#0D9488',
+          tealdark: '#134E4A',
+          accent: '#F97316',
+          cream: '#F0FDFA',
           ink: '#0F172A',
         }
       },
