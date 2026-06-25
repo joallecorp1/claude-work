@@ -11,14 +11,16 @@
 <link rel="stylesheet" href="assets/tailwind.css">
 <style>
   :root{
-    --void:#0B0D0F;
-    --panel:#15191C;
-    --panel-2:#1B2024;
-    --amber:#C5631A;
-    --amber-bright:#F0883E;
-    --bone:#EDE7DC;
-    --slate:#9AA1A3;
-    --hairline:rgba(237,231,220,0.12);
+    --bg:#FFFFFF;
+    --panel:#F7F8FA;
+    --panel-2:#FFFFFF;
+    --navy:#1B3F8B;
+    --navy-deep:#0F2C5C;
+    --navy-bright:#2856B8;
+    --red:#C8102E;
+    --ink:#13161A;
+    --slate:#5B6470;
+    --hairline:rgba(19,22,26,0.10);
   }
   html{ scroll-behavior:smooth; }
   @media (prefers-reduced-motion: reduce){
@@ -26,36 +28,36 @@
     *{ animation-duration:0.01ms !important; transition-duration:0.01ms !important; }
   }
   body{
-    background:var(--void);
-    color:var(--bone);
+    background:var(--bg);
+    color:var(--ink);
     font-family:'Inter',sans-serif;
     -webkit-font-smoothing:antialiased;
   }
   .font-display{ font-family:'Fraunces',serif; font-variation-settings:'opsz' 80; }
   .font-mono{ font-family:'JetBrains Mono',monospace; }
 
-  /* ambient amber bloom behind the stage */
+  /* ambient navy bloom behind the stage */
   .bloom{
     position:absolute; border-radius:50%;
-    background:radial-gradient(circle, rgba(197,99,26,0.55) 0%, rgba(197,99,26,0.12) 45%, rgba(197,99,26,0) 70%);
+    background:radial-gradient(circle, rgba(27,63,139,0.16) 0%, rgba(27,63,139,0.06) 45%, rgba(27,63,139,0) 70%);
     filter:blur(60px);
     pointer-events:none;
   }
   .grain{
-    position:absolute; inset:0; opacity:0.05; pointer-events:none; mix-blend-mode:overlay;
+    position:absolute; inset:0; opacity:0.025; pointer-events:none; mix-blend-mode:multiply;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
   .hairline{ border-color:var(--hairline); }
 
   /* header */
-  header.scrolled{ background:rgba(11,13,15,0.78); backdrop-filter:blur(14px); border-bottom:1px solid var(--hairline); }
+  header.scrolled{ background:rgba(255,255,255,0.85); backdrop-filter:blur(14px); border-bottom:1px solid var(--hairline); }
 
   /* stage / 3D product */
   .stage-perspective{ perspective:1600px; }
   .bottle-3d{
     transform:rotateY(-14deg) rotateX(2deg);
     transition:transform 600ms cubic-bezier(.22,1,.36,1), opacity 450ms ease, filter 450ms ease;
-    filter:drop-shadow(0 35px 45px rgba(0,0,0,0.55)) drop-shadow(0 0 40px rgba(197,99,26,0.25));
+    filter:drop-shadow(0 30px 40px rgba(19,22,26,0.18)) drop-shadow(0 0 30px rgba(27,63,139,0.12));
   }
   .stage-perspective:hover .bottle-3d{ transform:rotateY(-6deg) rotateX(0deg) scale(1.02); }
 
@@ -68,17 +70,17 @@
 
   .arrow-btn{
     width:44px; height:44px; border-radius:9999px;
-    background:rgba(21,25,28,0.6); border:1px solid var(--hairline);
-    backdrop-filter:blur(8px);
+    background:#FFFFFF; border:1px solid var(--hairline);
+    box-shadow:0 4px 16px rgba(19,22,26,0.08);
     display:flex; align-items:center; justify-content:center;
-    transition:background 200ms ease, border-color 200ms ease, transform 200ms ease;
+    transition:background 200ms ease, border-color 200ms ease, transform 200ms ease, box-shadow 200ms ease;
   }
-  .arrow-btn:hover{ background:rgba(197,99,26,0.18); border-color:rgba(197,99,26,0.5); transform:translateY(-2px); }
+  .arrow-btn:hover{ background:#EEF2FA; border-color:rgba(27,63,139,0.35); transform:translateY(-2px); box-shadow:0 8px 20px rgba(19,22,26,0.12); }
   @media (min-width:640px){ .arrow-btn{ width:56px; height:56px; } }
-  .arrow-btn:focus-visible{ outline:2px solid var(--amber-bright); outline-offset:3px; }
+  .arrow-btn:focus-visible{ outline:2px solid var(--navy-bright); outline-offset:3px; }
 
   .dot{ width:6px; height:6px; border-radius:9999px; background:var(--hairline); transition:all 200ms ease; }
-  .dot.active{ width:22px; background:var(--amber-bright); }
+  .dot.active{ width:22px; background:var(--navy); }
 
   .label-chip{
     border:1px solid var(--hairline); color:var(--slate);
@@ -88,24 +90,24 @@
 </head>
 <body class="antialiased">
 
-<a href="#showcase" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-[var(--amber)] text-white px-4 py-2 rounded z-50">Skip to content</a>
+<a href="#showcase" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-[var(--navy)] text-white px-4 py-2 rounded z-50">Skip to content</a>
 
 <!-- HEADER -->
 <header id="site-header" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300">
   <nav class="max-w-7xl mx-auto flex items-center justify-between px-6 lg:px-10 py-5">
     <a href="#showcase" class="flex items-center gap-3 group">
-      <span class="w-9 h-9 rounded-full border border-[var(--hairline)] flex items-center justify-center" style="background:radial-gradient(circle at 35% 30%, var(--amber-bright), var(--amber) 60%, #5c2c0d 100%);">
+      <span class="w-9 h-9 rounded-full border border-[var(--hairline)] flex items-center justify-center" style="background:radial-gradient(circle at 35% 30%, var(--navy-bright), var(--navy) 60%, var(--navy-deep) 100%);">
         <span class="sr-only">Lugol's Naturals</span>
       </span>
-      <span class="font-display text-xl tracking-tight" style="color:var(--bone);">Lugol's <span style="color:var(--amber-bright);">Naturals</span></span>
+      <span class="font-display text-xl tracking-tight" style="color:var(--ink);">Lugol's <span style="color:var(--navy);">Naturals</span></span>
     </a>
     <div class="hidden md:flex items-center gap-10 text-sm" style="color:var(--slate);">
-      <a href="#showcase" class="hover:text-[var(--bone)] transition-colors duration-200 cursor-pointer">Collection</a>
-      <a href="#quality" class="hover:text-[var(--bone)] transition-colors duration-200 cursor-pointer">Quality</a>
-      <a href="#about" class="hover:text-[var(--bone)] transition-colors duration-200 cursor-pointer">About</a>
-      <a href="dealer-portal.html" class="hover:text-[var(--amber-bright)] transition-colors duration-200 cursor-pointer border-b border-transparent hover:border-[var(--amber-bright)] pb-0.5">Dealer Portal</a>
+      <a href="#showcase" class="hover:text-[var(--ink)] transition-colors duration-200 cursor-pointer">Collection</a>
+      <a href="#quality" class="hover:text-[var(--ink)] transition-colors duration-200 cursor-pointer">Quality</a>
+      <a href="#about" class="hover:text-[var(--ink)] transition-colors duration-200 cursor-pointer">About</a>
+      <a href="dealer-portal.html" class="hover:text-[var(--navy)] transition-colors duration-200 cursor-pointer border-b border-transparent hover:border-[var(--navy)] pb-0.5">Dealer Portal</a>
     </div>
-    <a href="dealer-portal.html" class="md:hidden text-xs font-mono uppercase tracking-wide" style="color:var(--amber-bright);">Dealers →</a>
+    <a href="dealer-portal.html" class="md:hidden text-xs font-mono uppercase tracking-wide" style="color:var(--navy);">Dealers →</a>
   </nav>
 </header>
 
@@ -117,8 +119,8 @@
     <div class="grain" aria-hidden="true"></div>
 
     <div class="relative max-w-6xl mx-auto w-full">
-      <p class="uppercase font-mono text-xs tracking-[0.25em] text-center mb-3" style="color:var(--amber-bright);">An Iodine Company. Nothing Else.</p>
-      <h1 class="font-display text-center text-3xl sm:text-4xl lg:text-5xl font-light leading-tight mb-2" style="color:var(--bone);">
+      <p class="uppercase font-mono text-xs tracking-[0.25em] text-center mb-3" style="color:var(--navy);">An Iodine Company. Nothing Else.</p>
+      <h1 class="font-display text-center text-3xl sm:text-4xl lg:text-5xl font-light leading-tight mb-2" style="color:var(--ink);">
         The Iodine Collection
       </h1>
       <p class="text-center font-mono text-xs tracking-[0.2em] mb-12" style="color:var(--slate);" id="slide-counter">01 / 10</p>
@@ -126,7 +128,7 @@
       <div class="flex items-center gap-2 sm:gap-6 md:gap-10">
         <!-- prev -->
         <button type="button" id="prev-btn" class="arrow-btn shrink-0 cursor-pointer" aria-label="Previous product">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--bone)" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6"/></svg>
         </button>
 
         <!-- stage -->
@@ -136,15 +138,15 @@
 
         <!-- next -->
         <button type="button" id="next-btn" class="arrow-btn shrink-0 cursor-pointer" aria-label="Next product">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--bone)" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6"/></svg>
         </button>
       </div>
 
       <div class="max-w-xl mx-auto text-center mt-10 slide-anim slide-active" id="slide-copy">
         <span class="label-chip inline-block px-3 py-1 rounded-full mb-4" id="slide-tag">DAIRY &amp; AGRICULTURE</span>
-        <h2 class="font-display text-2xl sm:text-3xl mb-3" style="color:var(--bone);" id="slide-name">Iodine Teat Dip</h2>
+        <h2 class="font-display text-2xl sm:text-3xl mb-3" style="color:var(--ink);" id="slide-name">Iodine Teat Dip</h2>
         <p class="text-sm leading-relaxed mb-5" style="color:var(--slate);" id="slide-desc">Barrier teat dip formulated to protect against environmental and contagious mastitis pathogens between milkings.</p>
-        <p class="font-mono text-xs tracking-wide" style="color:var(--amber-bright);" id="slide-spec">1 GALLON (3.78 L) · RETAIL $24.99</p>
+        <p class="font-mono text-xs tracking-wide" style="color:var(--navy);" id="slide-spec">1 GALLON (3.78 L) · RETAIL $24.99</p>
       </div>
 
       <div class="flex items-center justify-center gap-2 mt-10" id="dots" role="tablist" aria-label="Choose product"></div>
@@ -154,27 +156,27 @@
   <!-- QUALITY / COMPLIANCE -->
   <section id="quality" class="relative px-6 py-24" style="background:var(--panel); border-top:1px solid var(--hairline); border-bottom:1px solid var(--hairline);">
     <div class="max-w-5xl mx-auto text-center mb-14">
-      <p class="uppercase font-mono text-xs tracking-[0.25em] mb-3" style="color:var(--amber-bright);">Quality &amp; Compliance</p>
-      <h2 class="font-display text-3xl sm:text-4xl mb-4" style="color:var(--bone);">Registered. Verified. Made in the USA.</h2>
+      <p class="uppercase font-mono text-xs tracking-[0.25em] mb-3" style="color:var(--navy);">Quality &amp; Compliance</p>
+      <h2 class="font-display text-3xl sm:text-4xl mb-4" style="color:var(--ink);">Registered. Verified. Made in the USA.</h2>
       <p class="max-w-2xl mx-auto leading-relaxed" style="color:var(--slate);">
         Lugol's Naturals is EPA, FDA, and DEA registered. Every product is manufactured in our own facility here in the United States, using only American-made iodine, with every batch lab-tested for purity and issued a Certificate of Analysis.
       </p>
     </div>
     <div class="max-w-5xl mx-auto grid md:grid-cols-4 gap-px rounded-2xl overflow-hidden" style="background:var(--hairline);">
       <div class="p-8 text-center" style="background:var(--panel-2);">
-        <p class="font-display text-2xl mb-2" style="color:var(--amber-bright);">EPA / FDA / DEA</p>
+        <p class="font-display text-2xl mb-2" style="color:var(--navy);">EPA / FDA / DEA</p>
         <p class="text-xs uppercase tracking-wide" style="color:var(--slate);">Registered Facility</p>
       </div>
       <div class="p-8 text-center" style="background:var(--panel-2);">
-        <p class="font-display text-2xl mb-2" style="color:var(--amber-bright);">USA</p>
+        <p class="font-display text-2xl mb-2" style="color:var(--navy);">USA</p>
         <p class="text-xs uppercase tracking-wide" style="color:var(--slate);">Made &amp; Tested</p>
       </div>
       <div class="p-8 text-center" style="background:var(--panel-2);">
-        <p class="font-display text-2xl mb-2" style="color:var(--amber-bright);">COA</p>
+        <p class="font-display text-2xl mb-2" style="color:var(--navy);">COA</p>
         <p class="text-xs uppercase tracking-wide" style="color:var(--slate);">Every Batch Tested</p>
       </div>
       <div class="p-8 text-center" style="background:var(--panel-2);">
-        <p class="font-display text-2xl mb-2" style="color:var(--amber-bright);">10</p>
+        <p class="font-display text-2xl mb-2" style="color:var(--navy);">10</p>
         <p class="text-xs uppercase tracking-wide" style="color:var(--slate);">Core Formulations</p>
       </div>
     </div>
@@ -182,8 +184,8 @@
 
   <!-- ABOUT -->
   <section id="about" class="px-6 py-28 max-w-4xl mx-auto text-center">
-    <p class="uppercase font-mono text-xs tracking-[0.25em] mb-4" style="color:var(--amber-bright);">Who We Are</p>
-    <h2 class="font-display text-3xl sm:text-4xl mb-6" style="color:var(--bone);">We Are an Iodine Company. Full Stop.</h2>
+    <p class="uppercase font-mono text-xs tracking-[0.25em] mb-4" style="color:var(--navy);">Who We Are</p>
+    <h2 class="font-display text-3xl sm:text-4xl mb-6" style="color:var(--ink);">We Are an Iodine Company. Full Stop.</h2>
     <p class="leading-relaxed mb-5" style="color:var(--slate);">
       Lugol's Naturals exists to do one thing exceptionally well: formulate and manufacture iodine-based antiseptic solutions. We don't dabble in adjacent categories or dilute our focus — every product we ship, from teat dips to surgical preps, is built on the same iodine chemistry and the same standard of potency.
     </p>
@@ -195,7 +197,7 @@
   <!-- FOOTER -->
   <footer class="px-6 py-12" style="border-top:1px solid var(--hairline);">
     <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
-      <p class="font-display" style="color:var(--bone);">Lugol's <span style="color:var(--amber-bright);">Naturals</span></p>
+      <p class="font-display" style="color:var(--ink);">Lugol's <span style="color:var(--navy);">Naturals</span></p>
       <p class="text-xs text-center sm:text-right max-w-2xl" style="color:var(--slate);">
         EPA, FDA &amp; DEA registered. Manufactured in the USA with American-made iodine; every batch tested for purity with a Certificate of Analysis. For external/topical use only unless otherwise indicated on product label. Keep out of reach of children. © 2026 Lugol's Naturals.
       </p>
