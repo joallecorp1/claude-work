@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
-  <rect width="800" height="800" fill="#F0FDFA"/>
-  <rect x="40" y="40" width="720" height="720" fill="none" stroke="#99F6E4" stroke-width="2" stroke-dasharray="10 8"/>
-  <text x="400" y="380" font-family="Arial, sans-serif" font-size="28" fill="#134E4A" text-anchor="middle">Lugol's Naturals</text>
-  <text x="400" y="420" font-family="Arial, sans-serif" font-size="20" fill="#475569" text-anchor="middle">Antiseptic Prep Pads</text>
-  <text x="400" y="460" font-family="Arial, sans-serif" font-size="14" fill="#94A3B8" text-anchor="middle">Replace with: prep-pads.jpg</text>
-</svg>
