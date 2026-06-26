@@ -85,6 +85,46 @@
     border:1px solid var(--hairline); color:var(--slate);
     font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.08em;
   }
+
+  /* oversized index numeral — the signature element */
+  .index-numeral{
+    font-family:'Fraunces',serif; font-variation-settings:'opsz' 144;
+    font-weight:600; line-height:0.8; letter-spacing:-0.04em;
+    color:var(--navy); opacity:0.14;
+    font-size:clamp(9rem, 24vw, 22rem);
+    position:absolute; top:50%; left:50%;
+    transform:translate(-50%,-46%);
+    pointer-events:none; user-select:none; z-index:0;
+    transition:opacity 400ms ease;
+  }
+
+  /* pedestal beneath product */
+  .pedestal{
+    position:absolute; bottom:6%; left:50%; transform:translateX(-50%);
+    width:62%; max-width:380px; height:28px; border-radius:50%;
+    background:radial-gradient(ellipse at center, rgba(2,6,23,0.16) 0%, rgba(2,6,23,0.06) 55%, rgba(2,6,23,0) 80%);
+    filter:blur(2px); z-index:1;
+  }
+
+  .wordmark-mark{
+    width:38px; height:38px; border-radius:10px;
+    background:linear-gradient(155deg, var(--navy-bright) 0%, var(--navy) 55%, var(--navy-deep) 100%);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 6px 16px rgba(2,6,23,0.22), inset 0 1px 0 rgba(255,255,255,0.18);
+  }
+  .wordmark-mark span{
+    font-family:'Fraunces',serif; font-weight:700; font-size:19px; color:#fff;
+    font-variation-settings:'opsz' 60;
+  }
+
+  .eyebrow-rule{
+    display:inline-flex; align-items:center; gap:10px;
+  }
+  .eyebrow-rule::before{
+    content:''; width:28px; height:1px; background:var(--navy);
+  }
+
+  .stat-icon{ width:30px; height:30px; color:var(--navy); }
 </style>
 </head>
 <body class="antialiased">
@@ -95,9 +135,7 @@
 <header id="site-header" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300">
   <nav class="max-w-7xl mx-auto flex items-center justify-between px-6 lg:px-10 py-5">
     <a href="#showcase" class="flex items-center gap-3 group">
-      <span class="w-9 h-9 rounded-full border border-[var(--hairline)] flex items-center justify-center" style="background:radial-gradient(circle at 35% 30%, var(--navy-bright), var(--navy) 60%, var(--navy-deep) 100%);">
-        <span class="sr-only">Lugol's Naturals</span>
-      </span>
+      <span class="wordmark-mark"><span>L</span></span>
       <span class="font-display text-xl tracking-tight" style="color:var(--ink);">Lugol's <span style="color:var(--navy);">Naturals</span></span>
     </a>
     <div class="hidden md:flex items-center gap-10 text-sm" style="color:var(--slate);">
@@ -118,20 +156,21 @@
     <div class="grain" aria-hidden="true"></div>
 
     <div class="relative max-w-6xl mx-auto w-full">
-      <p class="uppercase font-mono text-xs tracking-[0.25em] text-center mb-3" style="color:var(--navy);">An Iodine Company. Nothing Else.</p>
-      <h1 class="font-display text-center text-3xl sm:text-4xl lg:text-5xl font-light leading-tight mb-2" style="color:var(--ink);">
-        The Iodine Collection
+      <p class="eyebrow-rule uppercase font-mono text-xs tracking-[0.25em] justify-center mb-5" style="color:var(--navy);">An Iodine Company. Nothing Else.</p>
+      <h1 class="font-display text-center text-5xl sm:text-6xl lg:text-7xl font-medium leading-[0.95] tracking-tight mb-14" style="color:var(--ink);">
+        The Iodine<br>Collection
       </h1>
-      <p class="text-center font-mono text-xs tracking-[0.2em] mb-12" style="color:var(--slate);" id="slide-counter">01 / 10</p>
 
-      <div class="flex items-center gap-2 sm:gap-6 md:gap-10">
+      <div class="flex items-center gap-3 sm:gap-8 md:gap-12">
         <!-- prev -->
         <button type="button" id="prev-btn" class="arrow-btn shrink-0 cursor-pointer" aria-label="Previous product">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6"/></svg>
         </button>
 
         <!-- stage -->
-        <div class="relative h-[300px] sm:h-[400px] md:h-[440px] flex-1 flex items-center justify-center min-w-0">
+        <div class="relative h-[420px] sm:h-[520px] md:h-[600px] flex-1 flex items-center justify-center min-w-0">
+          <span class="index-numeral" id="slide-numeral" aria-hidden="true">01</span>
+          <div class="pedestal" aria-hidden="true"></div>
           <img id="slide-img" src="assets/products/teat-dip.png" alt="" class="bottle-3d slide-anim slide-active relative z-10 max-h-full w-auto drop-shadow-2xl">
         </div>
 
@@ -141,7 +180,7 @@
         </button>
       </div>
 
-      <div class="max-w-xl mx-auto text-center mt-10 slide-anim slide-active" id="slide-copy">
+      <div class="max-w-xl mx-auto text-center mt-12 slide-anim slide-active" id="slide-copy">
         <span class="label-chip inline-block px-3 py-1 rounded-full mb-4" id="slide-tag">DAIRY &amp; AGRICULTURE</span>
         <h2 class="font-display text-2xl sm:text-3xl mb-3" style="color:var(--ink);" id="slide-name">Iodine Teat Dip</h2>
         <p class="text-sm leading-relaxed mb-5" style="color:var(--slate);" id="slide-desc">Barrier teat dip formulated to protect against environmental and contagious mastitis pathogens between milkings.</p>
@@ -149,6 +188,7 @@
       </div>
 
       <div class="flex items-center justify-center gap-2 mt-10" id="dots" role="tablist" aria-label="Choose product"></div>
+      <p class="text-center font-mono text-xs tracking-[0.2em] mt-4" style="color:var(--slate);" id="slide-counter">01 / 10</p>
     </div>
   </section>
 
@@ -162,19 +202,23 @@
       </p>
     </div>
     <div class="max-w-5xl mx-auto grid md:grid-cols-4 gap-px rounded-2xl overflow-hidden" style="background:var(--hairline);">
-      <div class="p-8 text-center" style="background:var(--panel-2);">
+      <div class="p-10 text-center" style="background:var(--panel-2);">
+        <svg class="stat-icon mx-auto mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2.5l8 3.6v5.4c0 5-3.4 8.3-8 9.9-4.6-1.6-8-4.9-8-9.9V6.1l8-3.6z"/><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2.2 2.2L15.5 9.5"/></svg>
         <p class="font-display text-2xl mb-2" style="color:var(--navy);">EPA / FDA / DEA</p>
         <p class="text-xs uppercase tracking-wide" style="color:var(--slate);">Registered Facility</p>
       </div>
-      <div class="p-8 text-center" style="background:var(--panel-2);">
+      <div class="p-10 text-center" style="background:var(--panel-2);">
+        <svg class="stat-icon mx-auto mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 11l9-7 9 7"/><path stroke-linecap="round" stroke-linejoin="round" d="M5 10v9h14v-9"/><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-5h6v5"/></svg>
         <p class="font-display text-2xl mb-2" style="color:var(--navy);">USA</p>
         <p class="text-xs uppercase tracking-wide" style="color:var(--slate);">Made &amp; Tested</p>
       </div>
-      <div class="p-8 text-center" style="background:var(--panel-2);">
+      <div class="p-10 text-center" style="background:var(--panel-2);">
+        <svg class="stat-icon mx-auto mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 2.5h6v4H9z"/><path stroke-linecap="round" stroke-linejoin="round" d="M7 6.5h10v13a1.5 1.5 0 01-1.5 1.5h-7A1.5 1.5 0 017 19.5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M9.5 11l2 2 3-3.5"/></svg>
         <p class="font-display text-2xl mb-2" style="color:var(--navy);">COA</p>
         <p class="text-xs uppercase tracking-wide" style="color:var(--slate);">Every Batch Tested</p>
       </div>
-      <div class="p-8 text-center" style="background:var(--panel-2);">
+      <div class="p-10 text-center" style="background:var(--panel-2);">
+        <svg class="stat-icon mx-auto mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.2"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.2"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.2"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.2"/></svg>
         <p class="font-display text-2xl mb-2" style="color:var(--navy);">10</p>
         <p class="text-xs uppercase tracking-wide" style="color:var(--slate);">Core Formulations</p>
       </div>
@@ -228,6 +272,7 @@
   var descEl = document.getElementById('slide-desc');
   var specEl = document.getElementById('slide-spec');
   var counterEl = document.getElementById('slide-counter');
+  var numeralEl = document.getElementById('slide-numeral');
   var dotsWrap = document.getElementById('dots');
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -250,6 +295,7 @@
     descEl.textContent = p.desc;
     specEl.textContent = p.spec;
     counterEl.textContent = pad(current + 1) + ' / ' + pad(products.length);
+    numeralEl.textContent = pad(current + 1);
     img.src = p.img;
     Array.prototype.forEach.call(dotsWrap.children, function(d, i){
       d.classList.toggle('active', i === current);
